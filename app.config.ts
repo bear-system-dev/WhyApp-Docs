@@ -3,21 +3,12 @@ export default defineAppConfig({
   docus: {
     title: 'WhyApp',
     description: 'WhyApp é um aplicativo de bate-papo projetado para facilitar a comunicação entre os usuários.',
-    image: 'favicon.png',
+    image: '/public/favicon.png',
     socials: {
       github: 'https://github.com/bear-system-dev/WhyApp-Docs',
     },
-    github: {
-      dir: '.starters/default/content',
-      branch: 'main',
-      repo: 'WhyApp-Docs',
-      owner: 'Bear System',
-      edit: false
-    },
     aside: {
-      level: 0,
       collapsed: false,
-      exclude: []
     },
     main: {
       padded: true,
@@ -26,8 +17,15 @@ export default defineAppConfig({
     header: {
       logo: true,
       showLinkIcon: true,
-      exclude: [],
       fluid: true
-    } 
+    },
+    footer: {
+      credits: {
+        text: 'Criado por @bear-system-dev',
+        icon: 'mdi:copyright',
+        href: 'https://github.com/bear-system-dev'
+      },
+      fluid: true,
+    }
   }
 })
