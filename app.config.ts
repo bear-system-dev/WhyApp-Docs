@@ -3,7 +3,7 @@ export default defineAppConfig({
   docus: {
     title: 'WhyApp',
     description: 'WhyApp é um aplicativo de bate-papo projetado para facilitar a comunicação entre os usuários.',
-    image: '/public/favicon.png',
+    image: '/img/favicon.png',
     socials: {
       github: 'https://github.com/bear-system-dev/WhyApp-Docs',
     },
