@@ -1,28 +1,3 @@
-# Estrutura de Diretórios do Projeto
-
-O projeto segue uma estrutura de diretórios organizada e modular. A estrutura de diretórios é a seguinte:
-
-## Panorâma Geral
-- `src`: Pasta que contém todo o código React;
-- `eslint.cjs`: Arquivo que contém as configurações do ESLint do projeto;
-- `gitignore`: Arquivo que contém as extensões que devem ser ignoradas pelo Git.
-- `index.html`: Arquivo que contém título, metadados, indexadores e importações de fontes e do código React;
-- `LICENSE`: Licença de uso da aplicação;
-- `package.json e pnpm-lock.yaml`: Arquivos que contém informações gerais do projeto, bem como declaração dos pacotes a serem instalados e utilizados pela aplicação;
-- `README.md`: Leia-me do projeto;
-- `tsconfig.json, tsconfig.node.json e vite.config.ts`: Arquivos que contêm configurações do TypeScript e do Vite.
-
-## public
-
-Pasta que contém todos os ativos estáticos da aplicação.
-
-- `img`: pasta que contém as imagens utilizadas no projeto.
-  - `logo.png`: Arquivo cuja finalidade é servir de logo para o site, bem como servir de favicon para a aba do navegador.
-
-## src
-
-Pasta que envolve a lógica da aplicação seguindo o padrão de código React.
-
 ### api 
 Pasta que contém os métodos e arquivos com funções voltadas para realizar as requisições que consomem a API do WhyApp.
 
@@ -31,13 +6,17 @@ Pasta que contém os métodos e arquivos com funções voltadas para realizar as
   #summary
   removeFriends.ts
 
+  #content
+  **Remove um amigo do usuário logado, dado o id do usuário e o id do amigo a ser removido passados como parâmetros na chamada da função**. Passa os mesmos como parâmetros da requisição na rota `/user/amigos` passando o token do usuário logado como parte do header HTTP `Authentication: Bearer ${token}`, e retorna a resposta da requisição se bem sucedida.
+  ::
+
 - **get**: arquivos que fazem requisições `GET` para a API.
 	::callout
 	#summary
 	getGroupMessage.ts
 
 	#content
-	**Obtém as mensagens dentro de um grupo dado o id passado na chamada da função**. Passa ele como parâmetro da requisição e retorna os dados da resposta da requisição se bem sucedida.
+	**Obtém as mensagens dentro de um grupo, dado o id passado como parâmetro na chamada da função**. Passa ele como parâmetro da requisição e retorna os dados da resposta da requisição se bem sucedida.
 	::
 
 	::callout
@@ -131,79 +110,3 @@ Pasta que contém os métodos e arquivos com funções voltadas para realizar as
 	::
 
 	- `api.ts`: arquivo que importa todos os arquivos dentro das pastas irmãs e os exporta.
-
-### components 
-- Pasta que contém os componentes do projeto e seus subcomponentes.
-	::callout
-	#summary
-	SettingsMenu.tsx
-
-	#content
-	O componente de menu de configurações.
-	::
-
-  	::callout
-	#summary
-	ChatsMenu.tsx
-
-	#content
-	O componente de menu de chats.
-	::
-
-  	::callout
-	#summary
-	SettingsMenu.tsxProfileMenu.tsx
-	#content
-	O componente de menu de perfil.
-	::
-
-  	::callout
-	#summary
-	Customize.tsx
-
-	#content
-	O componente de personalização.
-	::
-
-### contexts: 
-- Pasta que contém os contexts e providers utilizados na aplicação.
-
-### lib 
-- Pasta que contém variáveis para as bibliotecas e HTTP client do projeto.
-    - `api.ts`: Módulo que contém variável de com URL base e interceptors do Axios.
-    - `queryClient.ts`: Módulo que contém variável do Query Client e seus parâmetros. 
-
-### model
-- Pasta que contém os as Interfaces (ou Modelos) com os atributos (tipos) de cada Entidade da aplicação.
-
-### pages 
-- Pasta que contém as páginas (rotas) da aplicação.
-	- `App`:
-	- `ForgotPassword`:
-	- `Login`:
-	- `Register`:
-	- `ResetPassword`:
-	- `ResetPasswordCode`:
-
-### routers 
-- Pasta que contém as funções responsáveis pela gestão de rotas da biblioteca `React-Router-Dom`.
-
-### utils 
-- Pasta que contém funções:
-	- `helpers`: para cálculos de indexação de busca, conversão de data e conversão de arquivos para base64;
-	- `hooks`: funções/hooks customizados do React, utilizados principalmente para finalidade de redução de código dentro dos componentes.
-
-### index.css 
-- Arquivo de configurações globais CSS, como variáveis globais de fontes e cores, reset CSS, estilização das tags body e html, e estilos da barra de scroll.
-
-### main.tsx 
-- Arquivo configuração e renderização da raíz do React.
-
-### vite-env.d.ts 
-- Arquivo padrão que faz referenciação para a tipagem do vite/client
-
-## Observações
-
-- A estrutura de pastas pode variar dependendo das necessidades do projeto e do time de desenvolvimento.
-- Algumas pastas ou arquivos podem faltar na estrutura de pastas apresentada acima.
-- A documentação pode ser atualizada à medida que o projeto evolui e muda.
