@@ -1,69 +1,110 @@
-# **Componente InputBar**
+**Componente InputBar**
 
-O componente `InputBar` é uma parte crucial da aplicação de chat, permitindo que os usuários insiram e enviem mensagens. Este componente é responsável por renderizar o campo de entrada, o seletor de emojis e o botão de anexar arquivo e o botão de enviar.
+O componente `InputBar` é o componente responsável por capturar a entrada do usuário e renderizar os botões de enviar e anexar arquivo.
 
-## **Propriedades**
+# **Funcionalidades Principais**
 
-O componente `InputBar` aceita as seguintes propriedades:
+* `setShowUpload`: uma função para alternar o modal de upload de arquivo
+* `showUpload`: um booleano que indica se o modal de upload de arquivo está aberto
+* `sendFiles`: uma função para enviar arquivos para o servidor
 
-- `setShowUpload`: uma função para alternar o modal de upload de arquivo
-- `showUpload`: um booleano que indica se o modal de upload de arquivo está aberto
-- `sendFiles`: uma função para enviar arquivos para o servidor
+# **Componentes**
 
-## **Estado**
+O componente `InputBar` renderiza os seguintes componentes:
 
-O componente `InputBar` usa as seguintes variáveis de estado:
+* `EmojiPicker`: um componente que renderiza o seletor de emojis
+* `Button`: um componente que renderiza os botões de emoji, anexar arquivo e enviar
+* `Input`: um componente que renderiza o campo de entrada
+* `Space`: um componente que renderiza o container para o campo de entrada e botões
 
-- `inputValue`: o valor atual do campo de entrada
-- `showEmojis`: um booleano que indica se o seletor de emojis está aberto
-- `closeIconFile`: um booleano que indica se o ícone de fechar para arquivos anexados está visível
+# **Estrutura do Código**
+```javascript
+interface InputBarProps {
+  setShowUpload: (show: boolean) => void
+  showUpload: boolean
+  sendFiles: (files: File[]) => void
+}
 
-## **Funções**
+const InputBar: React.FC<InputBarProps> = ({
+  setShowUpload,
+  showUpload,
+  sendFiles,
+}) => {
+  // Estado e funções do componente
+  const [inputValue, setInputValue] = useState('')
+  const [showEmojis, setShowEmojis] = useState(false)
+  const [closeIconFile, setCloseIconFile] = useState(false)
 
-O componente `InputBar` usa as seguintes funções:
+  const handleSendMessage = () => {
+    // Lógica para enviar mensagem
+  }
 
-- `handleSendMessage`: envia o valor de entrada e os arquivos anexados para o servidor
-- `handleInputOnChange`: atualiza a variável de estado `inputValue` quando o campo de entrada muda
-- `handleOpenEmojiDrawer`: alterna o seletor de emojis
-- `handleEmoji`: insere um emoji no campo de entrada quando clicado
-- `handleOnKeyDown`: trata o evento de pressionar a tecla Enter para enviar a mensagem
+  const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+  }
 
-## **Componentes**
+  const handleOpenEmojiDrawer = () => {
+    setShowEmojis(!showEmojis)
+  }
 
-O componente `InputBar` renderiza os seguintes componentes:
+  const handleEmoji = (emoji: string) => {
+    setInputValue(inputValue + emoji)
+  }
 
-- `EmojiLibrary`: um componente que renderiza o seletor de emojis
-- `Button`: um componente que renderiza os botões de emoji, anexar arquivo e enviar
-- `Input`: um componente que renderiza o campo de entrada
-- `Space`: um componente que renderiza o container para o campo de entrada e botões
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendMessage()
+    }
+  }
 
-## **Contextos e hooks utilizados**
-O componente `InputBar` usa os seguintes contextos e hooks customizados:
-- `ChatContext`: contexto para buscar e setar o `recipient` e para buscar e setar o `fileList`
-- `SendNewGroupMessage`: hook customizado para chamar a requisição `mutation` para envio de mensagens em grupo
+  return (
+    <div className="input-bar">
+      <Input
+        type="text"
+        value={inputValue}
+        onChange={handleInputOnChange}
+        onKeyDown={handleOnKeyDown}
+        placeholder="Digite uma mensagem..."
+      />
+      <Button
+        onClick={handleOpenEmojiDrawer}
+        className="emoji-button"
+      >
+        😊
+      </Button>
+      <Button
+        onClick={() => setShowUpload(true)}
+        className="attach-button"
+      >
+        👉
+      </Button>
+      <Button
+        onClick={handleSendMessage}
+        className="send-button"
+      >
+        ➡️
+      </Button>
+      {showEmojis && (
+        <EmojiPicker
+          onSelect={handleEmoji}
+        />
+      )}
+      {showUpload && (
+        <UploadModal
+          onSend={sendFiles}
+        />
+      )}
+    </div>
+  )
+}
 
-## **Funções**
-O componente `InputBar` usa as seguintes funções:
-- `handleSendMessage`: Esta função é chamada quando o usuário pressiona a tecla Enter ou clica no botão de enviar. Verifica se o valor de entrada não está vazio e se há arquivos para serem enviados. Se ambas as condições forem verdadeiras, envia a mensagem e os arquivos para o servidor utilizando as funções `socket` e sendFiles. Além disso, redefine o valor de entrada e a lista de arquivos para vazio após o envio.
-- `handleInputOnChange`: Esta função é chamada quando o usuário digita algo no campo de entrada. Atualiza a variável de estado inputValue com o novo valor e define a variável de estado closeIconFile como false se o valor de entrada não estiver vazio. Se o valor de entrada estiver vazio, define closeIconFile como true.
-- `handleOpenEmojiDrawer`: Esta função alterna a janela de seleção de emojis. Quando chamada, redefine a variável de estado showEmojis para o oposto do seu valor atual.
-- `handleEmoji`: Esta função é chamada quando o usuário seleciona um emoji da janela de seleção de emojis. Acrescenta o emoji selecionado ao valor de entrada.
-- `handleOnKeyDown`: Esta função é chamada quando o usuário pressiona uma tecla no campo de entrada. Se o usuário pressionar a tecla Enter, chama a função handleSendMessage para enviar a mensagem e os arquivos. Além disso, alterna a variável de estado closeIconFile.
-
-## **Estilos**
-
-O componente `InputBar` usa os seguintes estilos:
-
-- `input-bar__background`: estiliza o contêiner para o campo de entrada e botões
-- `emoji-button`: estiliza o botão de emoji
-- `attach-button`: estiliza o botão de anexar arquivo
-- `send-button`: estiliza o botão de enviar
-- `input-bar`: estiliza o campo de entrada
-
-## **Manutenção**
-
-Para manter este componente, siga os seguintes passos:
-
-- Atualize a função `handleSendMessage` para lidar com alterações na API do servidor
-- Atualize o componente `EmojiLibrary` para adicionar ou remover emojis
-- Atualize os estilos para corresponder às alterações no design da aplicação
+export default InputBar
+```
+# **Exemplo de uso**
+```javascript
+<InputBar
+  setShowUpload={(show) => console.log(show)}
+  showUpload={false}
+  sendFiles={(files) => console.log(files)}
+/>
+```
